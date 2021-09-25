@@ -1,0 +1,31 @@
+{
+  "ts-node": {
+    "transpileOnly": true,
+  },
+
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig.json to read more about this file */
+
+    /* Default settings */
+    /* Language and Environment */
+    "target": "es5",
+
+    /* Modules */
+    "module": "commonjs",
+    "esModuleInterop": true, 
+    "forceConsistentCasingInFileNames": true, 
+
+    /* Type Checking */
+    "strict": true,
+    "skipLibCheck": true,
+
+    /* My settings */
+    "outDir": "dist",
+    "sourceMap": true,
+    "allowJs": true,
+    "incremental": true,
+    "moduleResolution": "node",
+    "checkJs": false,
+    "strictNullChecks": true
+  }
+}
