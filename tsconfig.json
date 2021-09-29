@@ -8,10 +8,10 @@
 
     /* Default settings */
     /* Language and Environment */
-    "target": "es5",
+    "target": "es2020",
 
     /* Modules */
-    "module": "commonjs",
+    "module": "es2020",
     "esModuleInterop": true, 
     "forceConsistentCasingInFileNames": true, 
 
@@ -27,5 +27,9 @@
     "moduleResolution": "node",
     "checkJs": false,
     "strictNullChecks": true
-  }
+  },
+
+  "include": [
+    "src/**/*.ts",
+  ],
 }
