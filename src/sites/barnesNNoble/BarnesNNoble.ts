@@ -9,11 +9,19 @@ async function start(): Promise<void> {
 
   const [signInBtn] = await page.$x(selectors.signInBtn);
   await signInBtn.click()
-  await page.waitForSelector(selectors.emailUsername);
-  // await page.keyboard.type("email@email.com", { delay: 100 })
-  // await page.keyboard.type("email@email.com", { delay: 100 })
+  await page.waitForSelector('body > div.modal > div');
+  const elementHandle = await page.$('body > div.modal > div > iframe');
+  const iframe = await elementHandle?.contentFrame()
 
-  await page.screenshot({ path: `puppeteerDownloads/screenshot${new Date()}.png`})
+  if (iframe) {
+    await iframe.waitForSelector(selectors.emailUsername);
+    // puppeteer is delayed in focusing on selector and is occasionally missing the first few characters when typing
+    await iframe.focus(selectors.emailUsername);
+    await iframe.type(selectors.emailUsername, "testing", { delay: 150 })
+    // await iframe.focus(selectors.emailUsername);
+    await iframe.type(selectors.password, "123four", { delay: 100 })
+    await page.screenshot({ path: `puppeteerDownloads/screenshot${new Date()}BandN.png`})
+  }
 
   await browser.close()
 }
