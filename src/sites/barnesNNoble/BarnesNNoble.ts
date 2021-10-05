@@ -9,8 +9,8 @@ async function start(): Promise<void> {
 
   const [signInBtn] = await page.$x(selectors.signInBtn);
   await signInBtn.click()
-  await page.waitForSelector('body > div.modal > div');
-  const elementHandle = await page.$('body > div.modal > div > iframe');
+  await page.waitForSelector(selectors.signInDiv);
+  const elementHandle = await page.$(selectors.iframeElHandle);
   const iframe = await elementHandle?.contentFrame()
 
   if (iframe) {
