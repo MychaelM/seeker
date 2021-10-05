@@ -1,5 +1,5 @@
 import puppeteer from 'puppeteer';
-import { urls, selectors } from './references'
+import { urls, selectors, creds } from './references'
 
 async function start(): Promise<void> {
   const browser = await puppeteer.launch({ headless: false, defaultViewport: { height: 1080, width: 1920 }});
@@ -15,14 +15,20 @@ async function start(): Promise<void> {
 
   if (iframe) {
     await iframe.waitForSelector(selectors.emailUsername);
-    // puppeteer is delayed in focusing on selector and is occasionally missing the first few characters when typing
+    // puppeteer is delayed in focusing on selector and is occasionally misses the first few characters when typing
     await iframe.focus(selectors.emailUsername);
-    await iframe.type(selectors.emailUsername, "testing", { delay: 150 })
-    // await iframe.focus(selectors.emailUsername);
-    await iframe.type(selectors.password, "123four", { delay: 100 })
-    await page.screenshot({ path: `puppeteerDownloads/screenshot${new Date()}BandN.png`})
+    await iframe.type(selectors.emailUsername, creds.loginUsername, { delay: 150 })
+    await iframe.type(selectors.password, creds.loginPassword, { delay: 100 })
+
+    await iframe.click(selectors.loginBtn)
+  } else {
+    throw new Error("Could not find the correct iframe");
   }
 
+  await page.waitForXPath('//a[contains(text(), "Hi, ")]')
+
+  await page.screenshot({ path: `puppeteerDownloads/screenshot${new Date()}BandN.png`})
+  
   await browser.close()
 }
 
