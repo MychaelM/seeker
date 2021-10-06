@@ -14,15 +14,14 @@ interface WishlistItem {
 }
 
 const buildWishlistItem = async ( page: Page ): Promise<WishlistItem[]> => {
-  const dateAddedElement = await page.$(selectors.wishlistAddedDate);
-  const dateAddedText: string = await page.evaluate((node) => node.innerText, dateAddedElement);
+  const dateAddedElement = await page.$eval(selectors.wishlistAddedDate, (node) => (node as HTMLDivElement).innerText);
 
   return [
     {
       itemName: "",
       author: "",
       rating: 0,
-      dateAdded: dateAddedText.split(" ")[1],
+      dateAdded: dateAddedElement ? dateAddedElement.split(" ")[1] : "",
       currentPrice: 0,
       productImageUrl: "",
       inCart: false,

@@ -3,7 +3,7 @@ import { buildWishlistItem } from './helpers/wishlistItem';
 import { urls, selectors, creds, xpaths } from './references'
 
 async function start(): Promise<void> {
-  const browser = await puppeteer.launch({ headless: false, defaultViewport: { height: 1080, width: 1920 }});
+  const browser = await puppeteer.launch({ headless: false, defaultViewport: null});
   const page = await browser.newPage();
   await page.goto(`${urls.homepage}`, { waitUntil: "domcontentloaded"});
 
