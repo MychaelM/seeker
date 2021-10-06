@@ -9,7 +9,7 @@ async function start(): Promise<void> {
 
   // Homepage
   await page.hover(selectors.myAccountDropdown)
-  const [signInBtn] = await page.$x(selectors.signInBtn);
+  const [signInBtn] = await page.$x(xpaths.signInBtn);
   await signInBtn.click();
   await page.waitForSelector(selectors.signInDiv);
   const elementHandle = await page.$(selectors.iframeElHandle);
@@ -25,6 +25,7 @@ async function start(): Promise<void> {
 
     await iframe.click(selectors.loginBtn);
   } else {
+    await page.screenshot({ path: `puppeteerDownloads/screenshot${new Date()}BandN.png`})
     throw new Error("Could not find the Login iframe");
   }
 

@@ -3,17 +3,17 @@ dotenv.config();
 
 const selectors = {
   "myAccountDropdown": "#navbarDropdown",
-  "signInBtn": "/html/body/div[1]/header/nav/div/div[2]/ul[2]/li[1]/div/dd/a[1]",
   "emailUsername": "#email",
   "password": "#password",
-  "signInDiv": "body > div.modal > div",
-  "iframeElHandle": "body > div.modal > div > iframe",
+  "signInDiv": "div.modal__dialog",
+  "iframeElHandle": "div.modal__dialog > iframe",
   "loginBtn": "button.btn.btn--large",
   "wishlistBtn": "li.new-li-rhf-icon-wishlist > a.wishlist-link",
   "wishlistAddedDate": "div.added-date.text--right"
 };
 
 const xpaths = {
+  "signInBtn": '//a[contains(., "Sign In")]',
   "loggedInText": '//a[contains(text(), "Hi, ")]',
   "wishlistLandingText": '//h1[contains(., "Your Wishlists")]'
 }
