@@ -17,9 +17,9 @@ async function start(): Promise<void> {
 
   // Login iframe
   if (iframe) {
-    await iframe.waitForSelector(selectors.emailUsername);
+    await iframe.waitForSelector(selectors.emailUsername, { visible: true });
     // puppeteer is delayed in focusing on selector and occasionally misses the first few characters when typing so I click the input first
-    await iframe.click(selectors.emailUsername);
+    await iframe.focus(selectors.emailUsername);
     await iframe.type(selectors.emailUsername, creds.loginUsername, { delay: 150 });
     await iframe.type(selectors.password, creds.loginPassword, { delay: 100 });
 
