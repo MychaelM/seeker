@@ -15,7 +15,7 @@ interface WishlistItem {
 
 const buildWishlistItem = async ( page: Page ): Promise<WishlistItem[]> => {
   const dateAddedElement = await page.$(selectors.wishlistAddedDate);
-  const dateAddedText = await page.evaluate((node) => node.innerText, dateAddedElement);
+  const dateAddedText: string = await page.evaluate((node) => node.innerText, dateAddedElement);
 
   return [
     {

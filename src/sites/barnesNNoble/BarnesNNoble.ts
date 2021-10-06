@@ -25,7 +25,7 @@ async function start(): Promise<void> {
 
     await iframe.click(selectors.loginBtn);
   } else {
-    throw new Error("Could not find the correct iframe");
+    throw new Error("Could not find the Login iframe");
   }
 
   await page.waitForXPath(xpaths.loggedInText);
@@ -34,6 +34,8 @@ async function start(): Promise<void> {
   // Wishlists Page
   await page.waitForXPath(xpaths.wishlistLandingText);
   const wishlistItems = await buildWishlistItem(page);
+
+  // Temporary log until return data has a place to go
   console.log(wishlistItems);
 
   await page.screenshot({ path: `puppeteerDownloads/screenshot${new Date()}BandN.png`})
