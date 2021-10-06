@@ -9,8 +9,14 @@ const selectors = {
   "signInDiv": "body > div.modal > div",
   "iframeElHandle": "body > div.modal > div > iframe",
   "loginBtn": "button.btn.btn--large",
-  "wishlistBtn": "li.new-li-rhf-icon-wishlist > a.wishlist-link"
+  "wishlistBtn": "li.new-li-rhf-icon-wishlist > a.wishlist-link",
+  "wishlistAddedDate": "div.added-date.text--right"
 };
+
+const xpaths = {
+  "loggedInText": '//a[contains(text(), "Hi, ")]',
+  "wishlistLandingText": '//h1[contains(., "Your Wishlists")]'
+}
 
 const urls = {
   "homepage": "https://www.barnesandnoble.com"
@@ -23,6 +29,7 @@ const creds = {
 
 export {
   selectors,
+  xpaths,
   urls,
   creds,
 }
