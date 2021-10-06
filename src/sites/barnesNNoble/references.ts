@@ -8,7 +8,8 @@ const selectors = {
   "password": "#password",
   "signInDiv": "body > div.modal > div",
   "iframeElHandle": "body > div.modal > div > iframe",
-  "loginBtn": "button.btn.btn--large"
+  "loginBtn": "button.btn.btn--large",
+  "wishlistBtn": "li.new-li-rhf-icon-wishlist > a.wishlist-link"
 };
 
 const urls = {
