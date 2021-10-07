@@ -16,7 +16,7 @@ interface WishlistItem {
 const buildWishlistItem = async ( page: Page ): Promise<WishlistItem[]> => {
   const itemNameText = await page.$eval(selectors.itemName, (node) => (node as HTMLAnchorElement).innerText);
   const authorText = await page.$eval(selectors.itemAuthor, (node) => (node as HTMLAnchorElement).innerText);
-  await page.waitForSelector(selectors.itemRating).catch(() => console.log("didn't find the item rating selector"));
+  await page.waitForSelector(selectors.itemRating);
   const ratingNumber = await page.$eval(selectors.itemRating, (node) => (node as HTMLDivElement).innerText);
   const dateAddedElement = await page.$eval(selectors.wishlistAddedDate, (node) => (node as HTMLDivElement).innerText);
   const currPrice = await page.$eval(selectors.currPrice, (node) => (node as HTMLSpanElement).innerText);
