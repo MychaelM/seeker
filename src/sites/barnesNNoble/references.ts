@@ -9,13 +9,20 @@ const selectors = {
   "iframeElHandle": "div.modal__dialog > iframe",
   "loginBtn": "button.btn.btn--large",
   "wishlistBtn": "li.new-li-rhf-icon-wishlist > a.wishlist-link",
-  "wishlistAddedDate": "div.added-date.text--right"
+  "wishlistAddedDate": "div.added-date.text--right",
+  "itemName": "h3[itemprop] > a",
+  "itemAuthor": "p.product-shelf-author > a",
+  "itemRating": "div[itemprop='ratingValue']",
+  "currPrice": "span.current-price",
+  "itemImg": "img.full-shadow",
+  "cartBtn": "input[value='ADD TO CART']",
+  "earliestDeliverySpan": "p > span.bold-text",
 };
 
 const xpaths = {
   "signInBtn": '//a[contains(., "Sign In")]',
   "loggedInText": '//a[contains(text(), "Hi, ")]',
-  "wishlistLandingText": '//h1[contains(., "Your Wishlists")]'
+  "wishlistLandingText": '//h2[contains(., "My Wishlist")]'
 }
 
 const urls = {
