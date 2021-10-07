@@ -3,19 +3,26 @@ dotenv.config();
 
 const selectors = {
   "myAccountDropdown": "#navbarDropdown",
-  "signInBtn": "/html/body/div[1]/header/nav/div/div[2]/ul[2]/li[1]/div/dd/a[1]",
   "emailUsername": "#email",
   "password": "#password",
-  "signInDiv": "body > div.modal > div",
-  "iframeElHandle": "body > div.modal > div > iframe",
+  "signInDiv": "div.modal__dialog",
+  "iframeElHandle": "div.modal__dialog > iframe",
   "loginBtn": "button.btn.btn--large",
   "wishlistBtn": "li.new-li-rhf-icon-wishlist > a.wishlist-link",
-  "wishlistAddedDate": "div.added-date.text--right"
+  "wishlistAddedDate": "div.added-date.text--right",
+  "itemName": "h3[itemprop] > a",
+  "itemAuthor": "p.product-shelf-author > a",
+  "itemRating": "div[itemprop='ratingValue']",
+  "currPrice": "span.current-price",
+  "itemImg": "img.full-shadow",
+  "cartBtn": "input[value='ADD TO CART']",
+  "earliestDeliverySpan": "p > span.bold-text",
 };
 
 const xpaths = {
+  "signInBtn": '//a[contains(., "Sign In")]',
   "loggedInText": '//a[contains(text(), "Hi, ")]',
-  "wishlistLandingText": '//h1[contains(., "Your Wishlists")]'
+  "wishlistLandingText": '//h2[contains(., "My Wishlist")]'
 }
 
 const urls = {
