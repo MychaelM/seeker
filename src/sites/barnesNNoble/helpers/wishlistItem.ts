@@ -40,4 +40,4 @@ const buildWishlistItem = async ( page: Page ): Promise<WishlistItem[]> => {
   ]
 }
 
-export { buildWishlistItem }
+export { buildWishlistItem, WishlistItem }

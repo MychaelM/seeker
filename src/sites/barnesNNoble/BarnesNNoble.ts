@@ -1,8 +1,8 @@
 import puppeteer from 'puppeteer';
-import { buildWishlistItem } from './helpers/wishlistItem';
+import { buildWishlistItem, WishlistItem } from './helpers/wishlistItem';
 import { urls, selectors, creds, xpaths } from './references'
 
-async function start(): Promise<void> {
+async function start(): Promise<WishlistItem[]> {
   const browser = await puppeteer.launch({ headless: false, defaultViewport: null});
   const page = await browser.newPage();
   await page.goto(`${urls.homepage}`, { waitUntil: "domcontentloaded"});
@@ -37,11 +37,12 @@ async function start(): Promise<void> {
   const wishlistItems = await buildWishlistItem(page);
 
   // Temporary log until return data has a place to go
-  console.log(wishlistItems);
-
+  
   await page.screenshot({ path: `puppeteerDownloads/screenshot${new Date()}BandN.png`})
   
   await browser.close()
+  return wishlistItems;
 }
 
-start();
+export { start }
+// start();
