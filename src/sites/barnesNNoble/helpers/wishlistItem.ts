@@ -14,23 +14,24 @@ interface WishlistItem {
 }
 
 const buildWishlistItem = async ( page: Page ): Promise<WishlistItem[]> => {
-  const itemNameText = await page.$eval(selectors.itemName, (node) => (node as HTMLAnchorElement).innerText);
+  // Gets wishlist item data from HTML elements on page
+  const itemNameText = await (await page.$eval(selectors.itemName, (node) => (node as HTMLAnchorElement).innerText)).trim();
   const authorText = await page.$eval(selectors.itemAuthor, (node) => (node as HTMLAnchorElement).innerText);
   await page.waitForSelector(selectors.itemRating);
   const ratingNumber = await page.$eval(selectors.itemRating, (node) => (node as HTMLDivElement).innerText);
-  const dateAddedElement = await page.$eval(selectors.wishlistAddedDate, (node) => (node as HTMLDivElement).innerText);
-  const currPrice = await page.$eval(selectors.currPrice, (node) => (node as HTMLSpanElement).innerText);
+  const dateAddedElement = await (await page.$eval(selectors.wishlistAddedDate, (node) => (node as HTMLDivElement).innerText)).split(" ")[1];
+  const currPrice = await (await page.$eval(selectors.currPrice, (node) => (node as HTMLSpanElement).innerText)).slice(1);
   const imgSrc = await page.$eval(selectors.itemImg, (node) => (node as HTMLImageElement).currentSrc);
   const addToCartBtn= await page.$(selectors.cartBtn);
   const earliestDeliveryText = await page.$eval(selectors.earliestDeliverySpan, (node) => (node as HTMLSpanElement).innerText);
 
   return [
     {
-      itemName: itemNameText.trim(),
+      itemName: itemNameText,
       author: authorText,
       rating: Number(ratingNumber),
-      dateAdded: dateAddedElement.split(" ")[1],
-      currentPrice: Number(currPrice.slice(1)),
+      dateAdded: dateAddedElement,
+      currentPrice: Number(currPrice),
       productImageUrl: imgSrc,
       inCart: addToCartBtn ? false : true,
       earliestDeliveryDate: earliestDeliveryText ? earliestDeliveryText : "",
