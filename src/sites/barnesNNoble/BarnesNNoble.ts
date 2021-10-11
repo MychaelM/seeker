@@ -18,7 +18,7 @@ async function start(): Promise<WishlistItem[]> {
   // Login iframe
   if (iframe) {
     await iframe.waitForSelector(selectors.emailUsername, { visible: true });
-    // puppeteer is delayed in focusing on selector and occasionally misses the first few characters when typing so I click the input first
+    // Sometimes when typing into username input pupetteer misses the first few characters I focus the input first
     await iframe.focus(selectors.emailUsername);
     await iframe.type(selectors.emailUsername, creds.loginUsername, { delay: 150 });
     await iframe.type(selectors.password, creds.loginPassword, { delay: 100 });
@@ -35,10 +35,6 @@ async function start(): Promise<WishlistItem[]> {
   // Wishlists Page
   await page.waitForXPath(xpaths.wishlistLandingText);
   const wishlistItems = await buildWishlistItem(page);
-
-  // Temporary log until return data has a place to go
-  
-  await page.screenshot({ path: `puppeteerDownloads/screenshot${new Date()}BandN.png`})
   
   await browser.close()
   return wishlistItems;
