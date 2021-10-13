@@ -23,7 +23,8 @@ const selectors = {
 const xpaths = {
   "signInBtn": '//a[contains(., "Sign In")]',
   "loggedInText": '//a[contains(text(), "Hi, ")]',
-  "wishlistLandingText": '//h2[contains(., "My Wishlist")]'
+  "wishlistLandingText": '//h2[contains(., "My Wishlist")]',
+  "outOfStockSpan": '//span[contains(., "Temporarily out of stock online")]',
 }
 
 const urls = {
