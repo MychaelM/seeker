@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 import { login } from './helpers/login';
-import { buildWishlistItem, WishlistItem } from './helpers/wishlistItem';
+import { buildWishlistItems, WishlistItem } from './helpers/wishlistItem';
 import { urls, selectors, xpaths } from './references'
 
 async function start(): Promise<WishlistItem[]> {
@@ -18,7 +18,7 @@ async function start(): Promise<WishlistItem[]> {
 
   // waits for wishlists page to load and then builds wishlist items
   await page.waitForXPath(xpaths.wishlistLandingText);
-  const wishlistItems = await buildWishlistItem(page);
+  const wishlistItems = await buildWishlistItems(page);
   
   // Closes browser and returns wishlist item data
   await browser.close()

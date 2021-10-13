@@ -16,7 +16,8 @@ const selectors = {
   "currPrice": "span.current-price",
   "itemImg": "img.full-shadow",
   "cartBtn": "input[value='ADD TO CART']",
-  "earliestDeliverySpan": "p > span.bold-text",
+  "earliestDeliverySpan": "span.bold-text",
+  "wishlistArray": "div.prod-img-details-sec",
 };
 
 const xpaths = {
