@@ -28,7 +28,10 @@ const buildWishlistItems = async ( page: Page ): Promise<WishlistItem[]> => {
       const dateAddedElement = (await wishlist.$eval(selectors.wishlistAddedDate, (node) => (node as HTMLDivElement).innerText)).split(" ")[1];
       const currPrice = (await wishlist.$eval(selectors.currPrice, (node) => (node as HTMLSpanElement).innerText)).slice(1);
       const imgSrc = await wishlist.$eval(selectors.itemImg, (node) => (node as HTMLImageElement).currentSrc);
-      const addToCartBtn= await wishlist.$(selectors.cartBtn);
+      const inCartSpan = await wishlist.$(selectors.inCartSpan);
+      // TODO handle PRE-ORDER btn
+      // const addToCartBtn = await wishlist.$(selectors.cartBtn);
+
       const earliestDeliveryText = await wishlist.$eval(selectors.earliestDeliverySpan, (node) => (node as HTMLSpanElement).innerText);
       const outOfStock = await wishlist.$eval(selectors.outOfStockSpan, (node) => (node as HTMLSpanElement).innerText.includes("Temporarily out of stock online"))
 
@@ -40,9 +43,8 @@ const buildWishlistItems = async ( page: Page ): Promise<WishlistItem[]> => {
       dateAdded: dateAddedElement,
       currentPrice: Number(currPrice),
       productImageUrl: imgSrc,
-      inCart: addToCartBtn ? false : true,
+      inCart: inCartSpan ? true : false,
       earliestDeliveryDate: earliestDeliveryText ? earliestDeliveryText : "",
-      // TODO sort out when an item is unavailable
       isAvailable: outOfStock ? false : true,
     });
   }
