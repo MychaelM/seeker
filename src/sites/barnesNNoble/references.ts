@@ -19,13 +19,13 @@ const selectors = {
   "earliestDeliverySpan": "span.bold-text",
   "wishlistArray": "div.prod-img-details-sec",
   "outOfStockSpan": "div.pdp-commerce-zone > p > span",
+  "inCartSpan": "div.wishlist-icons > span"
 };
 
 const xpaths = {
   "signInBtn": '//a[contains(., "Sign In")]',
   "loggedInText": '//a[contains(text(), "Hi, ")]',
   "wishlistLandingText": '//h2[contains(., "My Wishlist")]',
-  // "outOfStockSpan": '//span[contains(., "Temporarily out of stock online")]',
 }
 
 const urls = {
