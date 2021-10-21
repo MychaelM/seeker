@@ -16,6 +16,7 @@ interface WishlistItem {
 const buildWishlistItems = async ( page: Page ): Promise<WishlistItem[]> => {
   const wishlistArray: WishlistItem[] = [];
 
+  await page.waitForTimeout(1250);
   await page.waitForSelector(selectors.itemRating, {timeout: 30000});
   
   const wishlistItemHandles = await page.$$(selectors.wishlistArray);
@@ -29,9 +30,7 @@ const buildWishlistItems = async ( page: Page ): Promise<WishlistItem[]> => {
       const imgSrc = await wishlist.$eval(selectors.itemImg, (node) => (node as HTMLImageElement).currentSrc);
       const addToCartBtn= await wishlist.$(selectors.cartBtn);
       const earliestDeliveryText = await wishlist.$eval(selectors.earliestDeliverySpan, (node) => (node as HTMLSpanElement).innerText);
-      const outOfStockEl = await wishlist.$x(xpaths.outOfStockSpan);
-      // console.log(await outOfStockText[0].getProperty('innerText'))
-      const outOfStockText = await outOfStockEl[0].evaluate((node) => (node as HTMLSpanElement).innerText)
+      const outOfStock = await wishlist.$eval(selectors.outOfStockSpan, (node) => (node as HTMLSpanElement).innerText.includes("Temporarily out of stock online"))
 
       wishlistArray.push(
     {
@@ -44,7 +43,7 @@ const buildWishlistItems = async ( page: Page ): Promise<WishlistItem[]> => {
       inCart: addToCartBtn ? false : true,
       earliestDeliveryDate: earliestDeliveryText ? earliestDeliveryText : "",
       // TODO sort out when an item is unavailable
-      isAvailable: outOfStockText.includes('Temporarily out of stock online') ? false : true,
+      isAvailable: outOfStock ? false : true,
     });
   }
 

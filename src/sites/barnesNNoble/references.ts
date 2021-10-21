@@ -18,13 +18,14 @@ const selectors = {
   "cartBtn": "input[value='ADD TO CART']",
   "earliestDeliverySpan": "span.bold-text",
   "wishlistArray": "div.prod-img-details-sec",
+  "outOfStockSpan": "div.pdp-commerce-zone > p > span",
 };
 
 const xpaths = {
   "signInBtn": '//a[contains(., "Sign In")]',
   "loggedInText": '//a[contains(text(), "Hi, ")]',
   "wishlistLandingText": '//h2[contains(., "My Wishlist")]',
-  "outOfStockSpan": '//span[contains(., "Temporarily out of stock online")]',
+  // "outOfStockSpan": '//span[contains(., "Temporarily out of stock online")]',
 }
 
 const urls = {
