@@ -16,7 +16,7 @@ interface WishlistItem {
 const buildWishlistItems = async ( page: Page ): Promise<WishlistItem[]> => {
   const wishlistArray: WishlistItem[] = [];
 
-  await page.waitForSelector(selectors.itemRating);
+  await page.waitForSelector(selectors.itemRating, {timeout: 30000});
   
   const wishlistItemHandles = await page.$$(selectors.wishlistArray);
   for (const wishlist of wishlistItemHandles) { 
@@ -29,8 +29,9 @@ const buildWishlistItems = async ( page: Page ): Promise<WishlistItem[]> => {
       const imgSrc = await wishlist.$eval(selectors.itemImg, (node) => (node as HTMLImageElement).currentSrc);
       const addToCartBtn= await wishlist.$(selectors.cartBtn);
       const earliestDeliveryText = await wishlist.$eval(selectors.earliestDeliverySpan, (node) => (node as HTMLSpanElement).innerText);
-      const outOfStockText = await wishlist.$x(xpaths.outOfStockSpan);
-      console.log(outOfStockText)
+      const outOfStockEl = await wishlist.$x(xpaths.outOfStockSpan);
+      // console.log(await outOfStockText[0].getProperty('innerText'))
+      const outOfStockText = await outOfStockEl[0].evaluate((node) => (node as HTMLSpanElement).innerText)
 
       wishlistArray.push(
     {
@@ -43,20 +44,9 @@ const buildWishlistItems = async ( page: Page ): Promise<WishlistItem[]> => {
       inCart: addToCartBtn ? false : true,
       earliestDeliveryDate: earliestDeliveryText ? earliestDeliveryText : "",
       // TODO sort out when an item is unavailable
-      isAvailable: outOfStockText === [] ? false : true,
+      isAvailable: outOfStockText.includes('Temporarily out of stock online') ? false : true,
     });
   }
-
-  // // Gets wishlist item data from HTML elements on page
-  // const itemNameText = await (await page.$eval(selectors.itemName, (node) => (node as HTMLAnchorElement).innerText)).trim();
-  // const authorText = await page.$eval(selectors.itemAuthor, (node) => (node as HTMLAnchorElement).innerText);
-  // await page.waitForSelector(selectors.itemRating);
-  // const ratingNumber = await page.$eval(selectors.itemRating, (node) => (node as HTMLDivElement).innerText);
-  // const dateAddedElement = await (await page.$eval(selectors.wishlistAddedDate, (node) => (node as HTMLDivElement).innerText)).split(" ")[1];
-  // const currPrice = await (await page.$eval(selectors.currPrice, (node) => (node as HTMLSpanElement).innerText)).slice(1);
-  // const imgSrc = await page.$eval(selectors.itemImg, (node) => (node as HTMLImageElement).currentSrc);
-  // const addToCartBtn= await page.$(selectors.cartBtn);
-  // const earliestDeliveryText = await page.$eval(selectors.earliestDeliverySpan, (node) => (node as HTMLSpanElement).innerText);
 
   return wishlistArray;
 }
