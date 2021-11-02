@@ -18,7 +18,7 @@ const selectors = {
   "cartBtn": "input[value='ADD TO CART']",
   "earliestDeliverySpan": "span.bold-text",
   "wishlistArray": "div.prod-img-details-sec",
-  "outOfStockSpan": "div.pdp-commerce-zone > p > span",
+  "outOfStockSpan": "div.pdp-commerce-zone > div.d-sm-none.d-md-block > p > span",
   "inCartSpan": "div.wishlist-icons > span"
 };
 
