@@ -34,29 +34,28 @@ const buildWishlistItems = async ( page: Page ): Promise<WishlistItem[]> => {
       earliestDeliveryText, 
       outOfStock] = await Promise.all([
       // Gets wishlist item data from HTML elements on node and pushes wishlist object to wishlist array
-      (await wishlist.$eval(selectors.itemName, (node) => (node as HTMLAnchorElement).innerText)).trim(),
-      await wishlist.$eval(selectors.itemAuthor, (node) => (node as HTMLAnchorElement).innerText),
-      (await wishlist.$eval(selectors.itemRating, (node) => (node as HTMLDivElement).innerText)),
-      (await wishlist.$eval(selectors.wishlistAddedDate, (node) => (node as HTMLDivElement).innerText)).split(" ")[1],
-      (await wishlist.$eval(selectors.currPrice, (node) => (node as HTMLSpanElement).innerText)).slice(1),
-      await wishlist.$eval(selectors.itemImg, (node) => (node as HTMLImageElement).currentSrc),
-      await wishlist.$(selectors.inCartSpan),
+      wishlist.$eval(selectors.itemName, (node) => (node as HTMLAnchorElement).innerText),
+      wishlist.$eval(selectors.itemAuthor, (node) => (node as HTMLAnchorElement).innerText),
+      wishlist.$eval(selectors.itemRating, (node) => (node as HTMLDivElement).innerText),
+      wishlist.$eval(selectors.wishlistAddedDate, (node) => (node as HTMLDivElement).innerText),
+      wishlist.$eval(selectors.currPrice, (node) => (node as HTMLSpanElement).innerText),
+      wishlist.$eval(selectors.itemImg, (node) => (node as HTMLImageElement).currentSrc),
+      wishlist.$(selectors.inCartSpan),
       // TODO handle PRE-ORDER btn
-
-      (await wishlist.$eval(selectors.earliestDeliverySpan, (node) => (node as HTMLSpanElement).innerText)).trim(),
-      await wishlist.$eval(selectors.outOfStockSpan, (node) => (node as HTMLSpanElement).innerText.includes("Temporarily out of stock online"))])
+      wishlist.$eval(selectors.earliestDeliverySpan, (node) => (node as HTMLSpanElement).innerText),
+      wishlist.$eval(selectors.outOfStockSpan, (node) => (node as HTMLSpanElement).innerText.includes("Temporarily out of stock online"))])
       
 
       wishlistArray.push(
     {
-      itemName: itemNameText,
+      itemName: itemNameText.trim(),
       author: authorText,
       rating: Number(ratingNumber),
-      dateAdded: dateAddedElement,
-      currentPrice: Number(currPrice),
+      dateAdded: dateAddedElement.split(" ")[1],
+      currentPrice: Number(currPrice.slice(1)),
       productImageUrl: imgSrc,
       inCart: inCartSpan ? true : false,
-      earliestDeliveryDate: earliestDeliveryText ? earliestDeliveryText : "",
+      earliestDeliveryDate: earliestDeliveryText ? earliestDeliveryText.trim() : "",
       isAvailable: outOfStock ? false : true,
     });
   }
