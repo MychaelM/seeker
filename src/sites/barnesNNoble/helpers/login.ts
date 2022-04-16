@@ -1,11 +1,10 @@
-import { Page } from "puppeteer"
-import { selectors, creds, xpaths } from "../references"
+import { Page } from 'playwright';
+import { selectors, creds, xpaths } from "../references";
 
 const login = async (page: Page): Promise<void> => {
   // Selects and clicks login button from My account Dropdown
   await page.hover(selectors.myAccountDropdown)
-  const [signInBtn] = await page.$x(xpaths.signInBtn);
-  await signInBtn.click();
+  await page.click(xpaths.signInBtn);
 
   // Waits for and stores element handle for parent div containing sign in iframe
   await page.waitForSelector(selectors.signInDiv);
@@ -15,7 +14,7 @@ const login = async (page: Page): Promise<void> => {
 
   // Inputs user credentials and logs in user after checking that iframe exists, returns error if iframe doesn't exist
   if (iframe) {
-    await iframe.waitForSelector(selectors.emailUsername, { visible: true });
+    // await iframe.waitForSelector(selectors.emailUsername, { visible: true });
     // Sometimes when typing into username input pupetteer misses the first few characters I focus the input first
     await iframe.focus(selectors.emailUsername);
     await iframe.type(selectors.emailUsername, creds.loginUsername, { delay: 150 });

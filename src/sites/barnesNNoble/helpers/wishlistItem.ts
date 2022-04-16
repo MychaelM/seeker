@@ -1,7 +1,7 @@
-import { Page } from "puppeteer"
-import { selectors, xpaths } from "../references"
+import { Page } from "playwright";
+import { selectors } from "../references";
 
-interface WishlistItem {
+export interface WishlistItem {
   itemName: string;
   author: string;
   rating: number;
@@ -13,12 +13,13 @@ interface WishlistItem {
   isAvailable: boolean;
 }
 
-const buildWishlistItems = async ( page: Page ): Promise<WishlistItem[]> => {
+export const buildWishlistItems = async ( page: Page ): Promise<WishlistItem[]> => {
   const wishlistArray: WishlistItem[] = [];
 
-  await page.waitForTimeout(1250);
+  // await page.waitForTimeout(1250);
   await page.waitForSelector(selectors.itemRating, {timeout: 30000});
   
+  //TODO refactor iterating through wishlist items
   const wishlistItemHandles = await page.$$(selectors.wishlistArray);
   for (const wishlist of wishlistItemHandles) { 
       // Gets wishlist item data from HTML elements on node and pushes wishlist object to wishlist array
@@ -51,5 +52,3 @@ const buildWishlistItems = async ( page: Page ): Promise<WishlistItem[]> => {
 
   return wishlistArray;
 }
-
-export { buildWishlistItems, WishlistItem }
