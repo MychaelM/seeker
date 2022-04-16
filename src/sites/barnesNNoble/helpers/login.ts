@@ -1,7 +1,8 @@
 import { Page } from 'playwright';
-import { selectors, creds, xpaths } from "../references";
+import { selectors, xpaths } from "../references";
 
-const login = async (page: Page): Promise<void> => {
+const login = async (page: Page, request: Record<string, string>): Promise<void> => {
+  const { username, password } = request
   // Selects and clicks login button from My account Dropdown
   await page.hover(selectors.myAccountDropdown)
   await page.click(xpaths.signInBtn);
@@ -17,12 +18,12 @@ const login = async (page: Page): Promise<void> => {
     // await iframe.waitForSelector(selectors.emailUsername, { visible: true });
     // Sometimes when typing into username input pupetteer misses the first few characters I focus the input first
     await iframe.focus(selectors.emailUsername);
-    await iframe.type(selectors.emailUsername, creds.loginUsername, { delay: 150 });
-    await iframe.type(selectors.password, creds.loginPassword, { delay: 100 });
+    await iframe.type(selectors.emailUsername, username, { delay: 150 });
+    await iframe.type(selectors.password, password, { delay: 100 });
 
     await iframe.click(selectors.loginBtn);
   } else {
-    await page.screenshot({ path: `puppeteerDownloads/screenshot${new Date()}BandN.png`})
+    await page.screenshot({ path: `puppeteerDownloads/screenshot${new Date()}BandN.png`, fullPage: true})
     throw new Error("Could not find the Login iframe");
   }
 }

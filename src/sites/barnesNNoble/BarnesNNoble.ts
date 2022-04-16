@@ -3,7 +3,7 @@ import { login } from './helpers/login';
 import { buildWishlistItems, WishlistItem } from './helpers/wishlistItem';
 import { urls, selectors } from './references'
 
-async function start(): Promise<WishlistItem[]> {
+export const start = async (): Promise<WishlistItem[]> => {
   // launches browser and navigates to the B&N homepage, waits until dom content is loaded
   const page = await setupBrowser();
   await page.goto(`${urls.homepage}`, { waitUntil: "domcontentloaded"});
@@ -23,6 +23,4 @@ async function start(): Promise<WishlistItem[]> {
   await closeBrowser(page);
   return wishlistItems;
 }
-
-export { start }
 // start();

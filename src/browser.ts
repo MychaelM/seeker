@@ -9,5 +9,5 @@ export const setupBrowser = async (): Promise<Page> => {
 }
 
 export const closeBrowser = async (page: Page): Promise<void> => {
-  return page.close();
+  return page.context().close()
 }
